@@ -18,7 +18,11 @@ class Usuario extends Model
         'rol',
         'fechaRegistro',
         'favoritos',
+        'url'
     ];
 
-
+    public function trabajador()
+    {
+        return $this->hasOne(Trabajadores::class, 'usuarioId', 'firebaseUID');
+    }
 }

@@ -13,7 +13,10 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+
+        $sol = Usuario::where('rol', 'trabajador')->get();
+        return response()->json($sol);
+
     }
 
     /**
