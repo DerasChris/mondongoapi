@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TrabajadoresController;
@@ -37,6 +38,9 @@ Route::post('/historial/add-historial', [HistorialController::class, 'insertarDo
 //RUTAS MODELO USUARIO
 
 Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
+Route::get('/usuario-trabajador', [UsuarioController::class, 'index']);
 Route::post('/usuario-add', [UsuarioController::class, 'insertarDocumento']);
 
+//Ruta categorias
+Route::get('/categorias', [CategoriasController::class, 'index']);
 

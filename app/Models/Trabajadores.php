@@ -33,4 +33,9 @@ class Trabajadores extends Model
     {
         return $date->format('Y-m-d\TH:i:s.u\Z'); // Formato ISO 8601
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'usuarioId', 'firebaseUID');
+    }
 }
