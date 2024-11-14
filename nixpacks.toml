@@ -1,17 +1,28 @@
 [phases.setup]
 nixPkgs = [
     "php82",
+    "php82Packages.composer",
     "php82Extensions.mongodb",
     "php82Extensions.mbstring",
     "php82Extensions.xml",
     "php82Extensions.curl",
+    "php82Extensions.zip",
     "openssl",
     "git"
 ]
 
+[phases.setup.env]
+COMPOSER_ALLOW_SUPERUSER = "1"
+COMPOSER_HOME = "/tmp/composer"
+PATH = "/root/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
 [phases.build]
 cmds = [
-    "composer install --no-interaction --optimize-autoloader"
+    "composer install --no-interaction --optimize-autoloader --no-dev",
+    "composer dump-autoload --optimize",
+    "php artisan clear-compiled",
+    "php artisan optimize",
+    "chmod -R 777 storage bootstrap/cache"
 ]
 
 [start]
