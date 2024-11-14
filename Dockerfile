@@ -25,7 +25,7 @@ RUN pecl install mongodb \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Configurar nginx
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Directorio de trabajo
 WORKDIR /var/www
