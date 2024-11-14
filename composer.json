@@ -9,7 +9,6 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "mongodb/laravel-mongodb": "^4.8",
-        "mongodb/mongodb": "^1.20",
         "ext-mongodb": "*"
     },
     "require-dev": {

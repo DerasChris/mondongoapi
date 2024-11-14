@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Verificando la instalación de MongoDB..."
+php -m | grep mongodb
+echo "Configuración de PHP..."
+php -i | grep "Configuration File"
