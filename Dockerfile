@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     nodejs \
     npm \
     nginx \
-    netcat \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar extensiones PHP
