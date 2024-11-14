@@ -8,7 +8,8 @@ nixPkgs = [
     "php82Extensions.curl",
     "php82Extensions.zip",
     "openssl",
-    "git"
+    "git",
+    "nodejs", # Agrega nodejs aquí para tener npm disponible
 ]
 
 [phases.setup.env]
@@ -19,6 +20,7 @@ PATH = "/root/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr
 [phases.build]
 cmds = [
     "composer install --no-interaction --optimize-autoloader --no-dev",
+    "npm i", # Ejecuta npm install después de instalar composer
     "composer dump-autoload --optimize",
     "php artisan clear-compiled",
     "php artisan optimize",
