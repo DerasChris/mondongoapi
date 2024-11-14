@@ -21,7 +21,7 @@ PHP_INI_SCAN_DIR = "/etc/php/8.2/cli/conf.d"
 [phases.build]
 cmds = [
     "mkdir -p /etc/php/8.2/cli/conf.d/",
-    "echo 'extension=mongodb.so' > /etc/php/8.2/cli/conf.d/20-mongodb.ini",
+    "echo 'extension=mongodb.so' > /etc/php/8.2/cli/php.ini",
     "composer install --no-interaction --prefer-dist --optimize-autoloader",
     "php artisan config:clear",
     "php artisan cache:clear"
