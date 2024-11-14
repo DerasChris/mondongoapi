@@ -1,30 +1,17 @@
 [phases.setup]
 nixPkgs = [
     "php82",
-    "php82Packages.composer",
     "php82Extensions.mongodb",
-    "php82Extensions.pdo",
     "php82Extensions.mbstring",
     "php82Extensions.xml",
     "php82Extensions.curl",
-    "php82Extensions.zip",
-    "php82Extensions.intl",
     "openssl",
-    "git",
-    "mongodb"
+    "git"
 ]
-
-[phases.setup.env]
-PHP_INI_DIR = "/etc/php/8.2/cli"
-PHP_INI_SCAN_DIR = "/etc/php/8.2/cli/conf.d"
 
 [phases.build]
 cmds = [
-    "mkdir -p /etc/php/8.2/cli/conf.d/",
-    "echo 'extension=mongodb.so' > /etc/php/8.2/cli/php.ini",
-    "composer install --no-interaction --prefer-dist --optimize-autoloader",
-    "php artisan config:clear",
-    "php artisan cache:clear"
+    "composer install --no-interaction --optimize-autoloader"
 ]
 
 [start]
