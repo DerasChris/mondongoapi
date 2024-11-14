@@ -14,6 +14,10 @@ nixPkgs = [
     "mongodb"
 ]
 
+[phases.setup.env]
+PHP_INI_DIR = "/etc/php/8.2/cli"
+PHP_INI_SCAN_DIR = "/etc/php/8.2/cli/conf.d"
+
 [phases.build]
 cmds = [
     "mkdir -p /etc/php/8.2/cli/conf.d/",
@@ -25,7 +29,3 @@ cmds = [
 
 [start]
 cmd = "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
-
-[phases.setup.env]
-PHP_INI_DIR = "/etc/php/8.2/cli"
-PHP_INI_SCAN_DIR = "/etc/php/8.2/cli/conf.d"
