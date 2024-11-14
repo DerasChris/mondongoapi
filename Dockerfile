@@ -1,4 +1,5 @@
-FROM php:8.2-fpm
+# Etapa de construcción
+FROM php:8.2-fpm as builder
 
 # Instalar dependencias
 RUN apt-get update && apt-get install -y \
@@ -31,13 +32,28 @@ COPY . /var/www
 
 # Instalar dependencias
 RUN composer install --no-interaction --no-dev --optimize-autoloader
-RUN npm install
+RUN npm install && npm run build
 
-# Permisos de almacenamiento
-RUN chmod -R 777 storage bootstrap/cache
+# Etapa final
+FROM nginx:alpine
+
+# Copiar configuración de nginx
+COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copiar archivos de la aplicación
+COPY --from=builder /var/www /var/www
+
+# Copiar PHP-FPM
+COPY --from=builder /usr/local/bin/php /usr/local/bin/php
+COPY --from=builder /usr/local/etc/php /usr/local/etc/php
+COPY --from=builder /usr/local/lib/php /usr/local/lib/php
+COPY --from=builder /usr/local/sbin/php-fpm /usr/local/sbin/php-fpm
+
+# Establecer permisos
+RUN chmod -R 777 /var/www/storage /var/www/bootstrap/cache
 
 # Exponer puerto
-EXPOSE 8000
+EXPOSE 80
 
-# Comando de inicio
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Iniciar nginx y php-fpm
+CMD ["nginx", "-g", "daemon off;"]
