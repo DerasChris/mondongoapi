@@ -19,7 +19,7 @@ PATH = "/root/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr
 
 [phases.build]
 cmds = [
-    "composer install --no-interaction --optimize-autoloader --no-dev --ignore-platform-req=ext-mongodb",
+    "composer install --no-interaction --optimize-autoloader --no-dev",
     "npm i", # Ejecuta npm install después de instalar composer
     "composer dump-autoload --optimize",
     "php artisan clear-compiled",
