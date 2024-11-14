@@ -17,6 +17,7 @@ nixPkgs = [
 COMPOSER_ALLOW_SUPERUSER = "1"
 COMPOSER_HOME = "/tmp/composer"
 PATH = "/root/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+PHP_INI_DIR = "/nix/store/sprs4lwjg2af4qpnvnsz6mblb3m175yd-php-with-extensions-8.2.22/lib"
 
 [phases.build]
 cmds = [
