@@ -6,7 +6,8 @@ aptPkgs = [
     "libssl-dev",
     "pkg-config",
     "libmongoc-dev",
-    "libmongoc-1.0-0"
+    "libmongoc-1.0-0",
+    "openssl"
 ]
 
 nixPkgs = [
