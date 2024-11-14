@@ -9,17 +9,21 @@ nixPkgs = [
     "php82Extensions.zip",
     "openssl",
     "git",
-    "nodejs", # Agrega nodejs aquí para tener npm disponible
+    "nodejs",
+    "mongodb"
 ]
 
 [phases.setup.env]
+PHP_INI_EXTENSION = "mongodb.so"
+LD_LIBRARY_PATH = "/nix/store/*-mongodb-*/lib"
+PKG_CONFIG_PATH = "/nix/store/*-mongodb-*/lib/pkgconfig
 COMPOSER_ALLOW_SUPERUSER = "1"
 COMPOSER_HOME = "/tmp/composer"
 PATH = "/root/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 [phases.build]
 cmds = [
-    "composer update",
+    "echo 'extension=mongodb.so' >> /etc/php/8.2/cli/php.ini",
     "composer install --no-interaction --optimize-autoloader --no-dev",
     "npm i", # Ejecuta npm install después de instalar composer
     "composer dump-autoload --optimize",
