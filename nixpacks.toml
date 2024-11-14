@@ -14,9 +14,6 @@ nixPkgs = [
 ]
 
 [phases.setup.env]
-PHP_INI_EXTENSION = "mongodb.so"
-LD_LIBRARY_PATH = "/nix/store/*-mongodb-*/lib"
-PKG_CONFIG_PATH = "/nix/store/*-mongodb-*/lib/pkgconfig"
 COMPOSER_ALLOW_SUPERUSER = "1"
 COMPOSER_HOME = "/tmp/composer"
 PATH = "/root/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
