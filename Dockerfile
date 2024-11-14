@@ -38,10 +38,18 @@ RUN composer install --no-interaction --no-dev --optimize-autoloader
 RUN npm install
 
 # Permisos de almacenamiento
-RUN chmod -R 777 storage bootstrap/cache
+RUN chown -R www-data:www-data /var/www
+RUN chmod -R 755 /var/www
+RUN chmod -R 777 /var/www/storage /var/www/bootstrap/cache
 
-# Configurar PHP-FPM para escuchar en TCP en lugar de socket Unix
-RUN echo "listen = 9000" >> /usr/local/etc/php-fpm.d/www.conf
+# Configurar PHP-FPM
+RUN echo "listen = 127.0.0.1:9000" >> /usr/local/etc/php-fpm.d/www.conf
+RUN echo "clear_env = no" >> /usr/local/etc/php-fpm.d/www.conf
+
+# Crear directorios de logs
+RUN mkdir -p /var/log/nginx
+RUN touch /var/log/nginx/error.log /var/log/nginx/access.log
+RUN chmod 777 /var/log/nginx/error.log /var/log/nginx/access.log
 
 # Exponer puerto
 EXPOSE 80
