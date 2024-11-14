@@ -1,15 +1,5 @@
 [phases.setup]
 
-aptPkgs = [
-    "curl",
-    "gnupg2",
-    "libssl-dev",
-    "pkg-config",
-    "libmongoc-dev",
-    "libmongoc-1.0-0",
-    "openssl"
-]
-
 nixPkgs = [
     "php82",
     "php82Packages.composer",
@@ -30,8 +20,6 @@ PATH = "/root/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr
 
 [phases.build]
 cmds = [
-    "echo 'extension=mongodb.so' > /etc/php/8.2/cli/conf.d/20-mongodb.ini",
-    "echo 'extension=mongodb.so' > /etc/php/8.2/mods-available/mongodb.ini",
     "composer install --no-interaction --optimize-autoloader --no-dev",
     "npm i", # Ejecuta npm install después de instalar composer
     "composer dump-autoload --optimize",
