@@ -41,6 +41,7 @@ class UsuarioController extends Controller
             'rol' => $request->rol,
             'fechaRegistro' => $request->fechaRegistro, // Convertir la fecha a UTCDateTime
             'favoritos' => $request->favoritos, // Asumimos que es un array de IDs
+            'url' => $request->url
         ];
 
         $ee = Usuario::create($documento);
