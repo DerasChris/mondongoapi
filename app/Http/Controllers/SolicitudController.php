@@ -59,6 +59,16 @@ class SolicitudController extends Controller
         }
     }
 
+    public function showTrabajador(string $id)
+    {
+        try {
+            $sol = SolicitudesTrabajo::where('trabajadorId', $id)->get();
+        return response()->json($sol);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'solicitud no encontrada'], 404);
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
