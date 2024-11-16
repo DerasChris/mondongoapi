@@ -26,6 +26,8 @@ Route::get('/solicitudes', [SolicitudController::class, 'index']);
 Route::get('/solicitudes-por-usuario/{id}', [SolicitudController::class, 'show']);
 Route::post('/solicitudes/add-solicitud', [SolicitudController::class, 'insertarDocumento']);
 Route::patch('/solicitudes/{id}/edit', [SolicitudController::class, 'update']);
+Route::get('/solicitudes-por-trabajador/{id}', [SolicitudController::class, 'showTrabajador']);
+
 
 
 //RUTAS MODELO HISTORIAL
