@@ -14,11 +14,9 @@ class NotificationController extends Controller
 
     public function __construct()
     {
-        $firebaseCredentialsPath = env('FIREBASE_CREDENTIALS_PATH', storage_path('app/firebase/firebase_credentials.json'));
         $firebase = (new Factory)
-            ->withServiceAccount($firebaseCredentialsPath)
+            ->withServiceAccount(env('FIREBASE_CREDENTIALS_PATH'))
             ->create();
-
 
         // Aquí inicializas el servicio de mensajería
         $this->messaging = $firebase->getMessaging();
