@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/var/www
-      - ./firebase_credentials.json:/var/www/firebase_credentials.json
+      - ./firebase_credentials.json:/app/firebase_credentials.json:ro
     networks:
       - app-network
   nginx:
@@ -16,7 +16,6 @@ services:
     volumes:
       - .:/var/www
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./storage:/var/www/storage
     networks:
       - app-network
     depends_on:
