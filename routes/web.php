@@ -47,5 +47,8 @@ Route::post('/usuario-add', [UsuarioController::class, 'insertarDocumento']);
 //Ruta categorias
 Route::get('/categorias', [CategoriasController::class, 'index']);
 
-Route::post('/send-topic-notification', [NotificationController::class, 'sendTopicNotification'])
-    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+//Ruta categorias
+Route::prefix('api')->group(function () {
+    Route::post('/send-topic-notification', [NotificationController::class, 'sendTopicNotification'])
+        ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+});
