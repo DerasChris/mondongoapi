@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class NotificationController extends Controller
 {
@@ -14,35 +14,57 @@ class NotificationController extends Controller
 
     public function __construct()
     {
-        $this->messaging = (new Factory)->createMessaging();
+        $this->messaging = (new Factory)
+            ->withServiceAccount(config('services.firebase.credentials'))
+            ->createMessaging();
     }
 
     public function sendPushNotification(Request $request)
     {
-        $deviceToken = $request->input('device_token'); // El token del dispositivo
+        $validator = Validator::make($request->all(), [
+            'device_token' => 'required|string',
+        ]);
 
-        $message = CloudMessage::withTarget($deviceToken)
-            ->withNotification(Notification::create('Nuevo Trabajo', 'Creemos que esta solicitud te puede interesar.'));
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        $deviceToken = $request->input('device_token');
+
+        $message = CloudMessage::new()
+            ->withNotification(Notification::create('Nuevo Trabajo', 'Creemos que esta solicitud te puede interesar.'))
+            ->withTarget('token', $deviceToken);
 
         try {
             $this->messaging->send($message);
             return response()->json(['message' => 'Notificación enviada exitosamente']);
         } catch (\Exception $e) {
+            \Log::error('Error al enviar notificación: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
 
     public function sendTopicNotification(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'topic' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
         $topic = $request->input('topic');
 
-        $message = CloudMessage::withTarget($topic)
-            ->withNotification(Notification::create('Nuevo Trabajo', 'Creemos que esta solicitud te puede interesar.'));
+        $message = CloudMessage::new()
+            ->withNotification(Notification::create('Nuevo Trabajo', 'Creemos que esta solicitud te puede interesar.'))
+            ->withTarget('topic', $topic);
 
         try {
             $this->messaging->send($message);
             return response()->json(['message' => 'Notificación enviada a tema']);
         } catch (\Exception $e) {
+            \Log::error('Error al enviar notificación: ' . $e->getMessage());
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
