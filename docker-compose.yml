@@ -6,8 +6,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/var/www
-    environment:
-      - FIREBASE_CREDENTIALS_PATH=${FIREBASE_CREDENTIALS_PATH}
     networks:
       - app-network
   nginx:

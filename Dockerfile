@@ -32,30 +32,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configurar nginx
 COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
+# COPIAR FIREBASE CREDENTIALS
+COPY ./firebase_credentials.json /firebase_credentials.json
+
 # Directorio de trabajo
 WORKDIR /var/www
 
 # Copiar archivos del proyecto
 COPY . /var/www
-
-# Script para credenciales de Firebase (Windows-friendly)
-RUN echo '#!/bin/sh\n\
-if [ ! -z "$FIREBASE_CREDENTIALS_PATH" ]; then\n\
-    echo "$FIREBASE_CREDENTIALS_PATH" | base64 -d > /var/www/firebase_credentials.json\n\
-    echo "Firebase credentials recreated successfully"\n\
-    chown www-data:www-data /var/www/firebase_credentials.json\n\
-    chmod 640 /var/www/firebase_credentials.json\n\
-else\n\
-    echo "Warning: Using development credentials"\n\
-    # Si no hay credenciales en variable de entorno, copia las de desarrollo si existen\n\
-    if [ -f "/var/www/firebase_credentials.json" ]; then\n\
-        echo "Using existing firebase_credentials.json"\n\
-    else\n\
-        echo "No credentials found. Creating empty credentials file"\n\
-        echo "{}" > /var/www/firebase_credentials.json\n\
-    fi\n\
-fi\n\
-exec "$@"' > /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 
 # Instalar dependencias
 RUN composer install --no-interaction --no-dev --optimize-autoloader
@@ -82,5 +66,4 @@ EXPOSE 80
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/start.sh"]
