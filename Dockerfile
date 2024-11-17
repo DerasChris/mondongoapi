@@ -40,13 +40,20 @@ COPY . /var/www
 
 # Script para credenciales de Firebase (Windows-friendly)
 RUN echo '#!/bin/sh\n\
-if [ ! -z "$FIREBASE_CREDENTIALS_BASE64" ]; then\n\
-    echo "$FIREBASE_CREDENTIALS_BASE64" | base64 -d > /var/www/firebase_credentials.json\n\
+if [ ! -z "$FIREBASE_CREDENTIALS_PATH" ]; then\n\
+    echo "$FIREBASE_CREDENTIALS_PATH" | base64 -d > /var/www/firebase_credentials.json\n\
     echo "Firebase credentials recreated successfully"\n\
     chown www-data:www-data /var/www/firebase_credentials.json\n\
     chmod 640 /var/www/firebase_credentials.json\n\
 else\n\
-    echo "Warning: FIREBASE_CREDENTIALS_BASE64 not set"\n\
+    echo "Warning: Using development credentials"\n\
+    # Si no hay credenciales en variable de entorno, copia las de desarrollo si existen\n\
+    if [ -f "/var/www/firebase_credentials.json" ]; then\n\
+        echo "Using existing firebase_credentials.json"\n\
+    else\n\
+        echo "No credentials found. Creating empty credentials file"\n\
+        echo "{}" > /var/www/firebase_credentials.json\n\
+    fi\n\
 fi\n\
 exec "$@"' > /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 

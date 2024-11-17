@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/var/www
     environment:
-      - FIREBASE_CREDENTIALS_BASE64=${FIREBASE_CREDENTIALS_BASE64}
+      - FIREBASE_CREDENTIALS_PATH=${FIREBASE_CREDENTIALS_PATH}
     networks:
       - app-network
   nginx:
