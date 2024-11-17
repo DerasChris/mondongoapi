@@ -1,4 +1,11 @@
 #!/bin/bash
+
+# Verificar credenciales de Firebase
+if [ ! -f "/var/www/firebase_credentials.json" ]; then
+    echo "Error: Firebase credentials not found"
+    exit 1
+fi
+
 # Cache de configuración y rutas
 php artisan config:cache
 php artisan route:cache

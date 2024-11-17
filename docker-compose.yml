@@ -6,13 +6,10 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/var/www
+    environment:
+      - FIREBASE_CREDENTIALS_BASE64=${FIREBASE_CREDENTIALS_BASE64}
     networks:
       - app-network
-    secrets:
-      - firebase_credentials
-    environment:
-      - FIREBASE_CREDENTIALS_PATH=/run/secrets/firebase_credentials
-
   nginx:
     image: nginx:alpine
     ports:
@@ -28,7 +25,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
-secrets:
-  firebase_credentials:
-    file: ./firebase_credentials.json
