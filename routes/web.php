@@ -52,3 +52,7 @@ Route::prefix('api')->group(function () {
     Route::post('/send-topic-notification', [NotificationController::class, 'sendTopicNotification'])
         ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 });
+
+Route::get('/csrf-token', function () {
+    return response()->json(['csrf_token' => csrf_token()]);
+});
