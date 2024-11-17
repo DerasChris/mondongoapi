@@ -8,6 +8,7 @@
         "php": "^8.2",
         "ext-mongodb": "^1.15",
         "illuminate/support": "^11.9",
+        "kreait/firebase-php": "^7.15",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "mongodb/laravel-mongodb": "^4.8",
