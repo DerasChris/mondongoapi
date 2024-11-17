@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
 use Illuminate\Http\Request;
 
 class NotificationController extends Controller
@@ -32,7 +34,7 @@ class NotificationController extends Controller
 
     public function sendTopicNotification(Request $request)
     {
-        $topic = $request->input('workers');
+        $topic = $request->input('topic');
 
         $message = CloudMessage::withTarget($topic)
             ->withNotification(Notification::create('Nuevo Trabajo', 'Creemos que esta solicitud te puede interesar.'));
