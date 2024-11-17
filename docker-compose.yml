@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/var/www
-      - ./storage:/var/www/storage
+      - ./firebase_credentials.json:/var/www/firebase_credentials.json
     networks:
       - app-network
   nginx:
