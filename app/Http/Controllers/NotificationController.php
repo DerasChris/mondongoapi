@@ -14,9 +14,12 @@ class NotificationController extends Controller
 
     public function __construct()
     {
-        $this->messaging = (new Factory)
-            ->withServiceAccount(config('services.firebase.credentials'))
-            ->createMessaging();
+        $firebase = (new Factory)
+            ->withServiceAccount(storage_path('app/firebase/firebase_credentials.json'))  // Asegúrate de usar la ruta correcta
+            ->create();
+
+        // Aquí inicializas el servicio de mensajería
+        $this->messaging = $firebase->getMessaging();
     }
 
     public function sendPushNotification(Request $request)
