@@ -33,7 +33,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # COPIAR FIREBASE CREDENTIALS
-COPY firebase_credentials.json /app/storage/app/firebase/firebase_credentials.json
+COPY storage/app/firebase/firebase_credentials.json /app/storage/app/firebase/firebase_credentials.json
 
 # Directorio de trabajo
 WORKDIR /var/www
