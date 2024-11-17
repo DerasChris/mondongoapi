@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     npm \
     nginx \
     netcat-openbsd \
+    && docker-php-ext-install sodium \
+    && docker-php-ext-install pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar extensiones PHP

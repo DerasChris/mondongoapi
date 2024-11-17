@@ -5,6 +5,7 @@ use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TrabajadoresController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\NotificationController;
 use App\Models\Historial;
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +47,6 @@ Route::post('/usuario-add', [UsuarioController::class, 'insertarDocumento']);
 //Ruta categorias
 Route::get('/categorias', [CategoriasController::class, 'index']);
 
+//Ruta notificaciones
+Route::post('send-notification', [NotificationController::class, 'sendPushNotification']);
+Route::post('send-topic-notification', [NotificationController::class, 'sendTopicNotification']);
