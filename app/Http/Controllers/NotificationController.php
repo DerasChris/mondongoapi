@@ -35,7 +35,7 @@ class NotificationController extends Controller
         $topic = $request->input('workers');
 
         $message = CloudMessage::withTarget($topic)
-            ->withNotification(Notification::create('Nuevo Trabajo', 'Tienes una nueva solicitud de trabajo.'));
+            ->withNotification(Notification::create('Nuevo Trabajo', 'Creemos que esta solicitud te puede interesar.'));
 
         try {
             $this->messaging->send($message);
