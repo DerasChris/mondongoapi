@@ -8,3 +8,12 @@ php-fpm &
 
 # Iniciar nginx en primer plano
 nginx -g 'daemon off;'
+
+# Detener contenedores y eliminar redes, volúmenes, etc.
+docker-compose down
+
+# Construir y levantar los contenedores
+docker-compose up --build -d
+
+# Verificar que los contenedores estén corriendo
+docker ps
