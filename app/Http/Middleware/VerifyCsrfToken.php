@@ -18,7 +18,6 @@ class VerifyCsrfToken extends Middleware
      protected $except = [
         'trabajadores/*',
         '/solicitudes/*',
-        'send-topic-notification',
-        '/send-topic-notification'
+        'api/*'
     ];
 }
