@@ -32,6 +32,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configurar nginx
 COPY docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
+COPY --from=secrets /run/secrets/firebase_credentials /app/config/firebase_credentials.json
+
 # Directorio de trabajo
 WORKDIR /var/www
 
